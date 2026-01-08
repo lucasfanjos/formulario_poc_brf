@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulário de Cadastro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 8px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+    }
+    button {
+      background: #2b7cff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1f5fd4;
+    }
+  </style>
+</head>
+<body>
+
+  <form method="POST" action="https://splitc.app.n8n.cloud/webhook-test/c451935d-637a-4aac-90b4-452ec7c9019a">
+    
+    <label>Nome</label>
+    <input type="text" name="nome" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Empresa</label>
+    <input type="text" name="empresa">
+
+    <button type="submit">Enviar</button>
+
+  </form>
+
+</body>
+</html>
