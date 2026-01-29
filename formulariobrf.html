@@ -12,7 +12,7 @@
     form {
       background: #fff;
       padding: 20px;
-      max-width: 400px;
+      max-width: 420px;
       margin: auto;
       border-radius: 8px;
     }
@@ -34,11 +34,29 @@
     button:hover {
       background: #1f5fd4;
     }
+
+    .success {
+      background: #e6fffa;
+      color: #065f46;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 16px;
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <form method="POST" action="https://splitc.app.n8n.cloud/webhook-test/c451935d-637a-4aac-90b4-452ec7c9019a">
+  <form id="apuracaoForm">
     
     <label>Matrícula</label>
     <input type="number" name="matricula" required>
@@ -58,9 +76,56 @@
 
     <button type="submit">Enviar</button>
 
+    <div class="success" id="successMsg">
+      ✅ Formulário enviado com sucesso!
+    </div>
+
+    <div class="error" id="errorMsg">
+      ❌ Erro ao enviar o formulário. Tente novamente.
+    </div>
+
   </form>
 
-</body>
+  <script>
+    const form = document.getElementById('apuracaoForm');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
 
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch(
+          'https://splitc.app.n8n.cloud/webhook/c451935d-637a-4aac-90b4-452ec7c9019a',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error('Erro no envio');
+        }
+
+        successMsg.style.display = 'block';
+        form.reset();
+
+      } catch (error) {
+        errorMsg.style.display = 'block';
+        console.error(error);
+      }
+    });
+  </script>
+
+</body>
 </html>
 
